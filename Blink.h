@@ -10,10 +10,11 @@ class Blink
 {
   public:
     Blink(int pin);
-    void on(int delay);
-    void off(int delay);
-   private:
+    void on(int time);
+    void off(int time);
+  private:
     int _pin;
+    int _time;
 };
 
 #endif
