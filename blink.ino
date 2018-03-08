@@ -1,6 +1,6 @@
 #include <Blink.h>
 
-Blink link(D4);
+Blink blink(D4);
 
 void setup() {
   Serial.begin(115200);
