@@ -4,7 +4,7 @@ Blink blink(D4);
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("\nBlink Version 1.0 Kim Seongyun");
+  Serial.println("\nBlink Version 1.0 Seongyun Kim");
 }
 
 void loop() {
