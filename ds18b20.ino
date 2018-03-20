@@ -6,7 +6,10 @@
 #define ONE_WIRE_BUS D4
 
 const char* host = "api.thingspeak.com";
+const char* host2 = "maker.ifttt.com";
 String ApiKey = "X0H2CVES01LVUESN";
+String IFTTTKEY = "omdodugR3B7rVgfpaGAgVvbbEYNkdri3X9zjV5YCcjM";
+String EVENTO = "hot_temp";
 const char* ssid = "iptime";
 const char* pwd = "12341234";
 
@@ -42,8 +45,10 @@ void sendTemperatureToThingspeak(float temp)
   }
   */
   
-  if(client.connect(host, 80)) {
+  if(client.connect(host2, 80)) {
     Serial.println("WiFi Client connected");
+
+    /* 이부분은 thingspeak로 측정온도값 쏘아보내기
     String path = ApiKey;
     path += "&field1=";
     path += String(temp);
@@ -59,6 +64,21 @@ void sendTemperatureToThingspeak(float temp)
     client.print("\n\n");
     client.print(path);
     //delay(1000);
+    */
+
+    String toSend = "GET /trigger/";
+    toSend += EVENTO;
+    toSend += "/with/key/";
+    toSend += IFTTTKEY;
+    toSend += "?value1=";
+    toSend += String(temp);
+    toSend += " HTTP/1.1\r\n";
+    toSend += "Host: ";
+    toSend += host2;
+    toSend += "\r\n";
+    toSend += "Connection: close\r\n\r\n";
+
+    client.print(toSend);
   }
   client.stop();
     //client.println(postStr);
@@ -96,5 +116,5 @@ void loop(void)
   Serial.println(sensors.getTempCByIndex(0));  
 
   sendTemperatureToThingspeak(sensors.getTempCByIndex(0));
-  delay(60000);
+  delay(5000);
 }
